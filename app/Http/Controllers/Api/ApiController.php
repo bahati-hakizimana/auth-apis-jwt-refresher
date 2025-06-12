@@ -15,7 +15,7 @@ class ApiController extends Controller
       $request ->validate([
         "name" => "required",
         "email" => "required|email|unique:users",
-        "password" => "required"
+        "password" => "required|confirmed"
       ]);
 
     //   Save user
@@ -66,12 +66,31 @@ class ApiController extends Controller
 
     public function profile(){
 
+        $userData = auth()->user();
+        return response()->json([
+            "status" =>true,
+            "message" => "profile data fetched successfully",
+            "userdata" => $userData
+        ]);
+
     }
     public function logout(){
+
+        auth()->logout();
+        return response()->json([
+            "status" =>true,
+            "message" => "Lopggedout successfully"
+        ]);
 
     }
 
     public function refreshToken(){
+
+        $newToken = auth()->refresh();
+        return response()->json([
+            "status" => true,
+            "refreshToken" => $newToken
+        ]);
 
     }
 }

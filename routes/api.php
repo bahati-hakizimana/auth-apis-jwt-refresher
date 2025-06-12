@@ -23,7 +23,8 @@ Route::post('register', [ApiController::class, 'register']);
 Route::post('login', [ApiController::class, 'login']);
 Route::group(
     ["middleware" => ["auth:api"]
-], function(){
+], 
+function(){
     Route::get('profile', [ApiController::class, 'profile']);
     Route::get('logout', [ApiController::class, 'logout']);
     Route::get('refreshToken', [ApiController::class, 'refreshToken']);
